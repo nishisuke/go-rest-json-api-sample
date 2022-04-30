@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  api:
+    build: build/package
+    working_dir: /home/app
+    ports:
+      - 55570:${PORT} # FIXME
+    env_file:
+      - .env
+    volumes:
+      - ./:/home/app
+  db:
+    container_name: ${DB_HOST}
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+    # ports:
+      # - 3307:${DB_PORT}
+    volumes:
+      - MUST_BE_REPLACED:/var/lib/mysql
+    # cap_add:
+      #- SYS_NICE  # CAP_SYS_NICE
+
+    # healthcheck:
+    #   test: ['CMD','mysqladmin','ping','-h','127.0.0.1', '-u', 'root','-pexample']
+
+volumes:
+  MUST_BE_REPLACED:
+    external: true
