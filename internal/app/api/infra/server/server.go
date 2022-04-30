@@ -2,6 +2,7 @@ package server
 
 import (
 	"your_module/internal/app/api/infra/env"
+	"your_module/internal/app/api/validation"
 	"your_module/internal/pkg/server"
 
 	"github.com/labstack/echo/v4"
@@ -16,8 +17,9 @@ func Start(logger echo.Logger, en env.Env) error {
 
 	e.HideBanner = !en.IsLocal()
 
+	e.Validator = validation.NewValidation()
+
 	//e.HTTPErrorHandler = customHTTPErrorHandler
-	//e.Validator = httpreq.NewValidation()
 	// middlewares(e)
 	// authed := e.Group("", auth)
 
