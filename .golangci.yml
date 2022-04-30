@@ -1,29 +1,29 @@
 run:
   go: '1.18'
 linters:
-  presets:
-    - bugs
-    - complexity
-    - error
-    - import
-    - metalinter
-    - module
-    - performance
-    - sql
-    - test
-    - unused
-    # - comment
-    # - format
-    # - style
+  enable-all: true
   disable:
+    - golint # Deprecated
+    - interfacer # Deprecated
     - maligned # Deprecated
     - scopelint # Deprecated
     - exhaustivestruct # Init struct with all field.
     - wrapcheck # Wrap error
     - gci # Imports
-
-
+    - varnamelen # Length of var
+    - nlreturn # Assert Blank line before return
+    - wsl # Empty line
+    - lll # Long line
+    - gofumpt # Formatter
+    - godox # Comment check
 linters-settings:
   gocritic:
     disabled-checks:
       - singleCaseSwitch
+  ireturn:
+    allow:
+      - anon
+      - error
+      - empty
+      - T # Generics
+      - logger.Interface # Gorm logger
