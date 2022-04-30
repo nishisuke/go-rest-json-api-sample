@@ -1,9 +1,6 @@
 package db
 
-// CHECK
-
 import (
-	"context"
 	"fmt"
 	"os"
 
@@ -13,16 +10,6 @@ import (
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/logger"
 )
-
-func Conn(ctx context.Context) *gorm.DB {
-	return db.WithContext(ctx)
-}
-
-func Transaction(ctx context.Context, content func(*gorm.DB) error) error {
-	return Conn(ctx).Transaction(content)
-}
-
-var db *gorm.DB
 
 func Prepare(logger logger.Interface) (*gorm.DB, error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
@@ -34,7 +21,6 @@ func Prepare(logger logger.Interface) (*gorm.DB, error) {
 	)
 
 	tmp, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
-		//Logger:                 env.Env().GormLogger(),
 		Logger:                 logger,
 		SkipDefaultTransaction: true,
 	})
