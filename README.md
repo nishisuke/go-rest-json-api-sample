@@ -24,5 +24,6 @@ docker-compose up
 ## Command
 ```
 docker-compose exec db mysql -u root -p
+docker-compose exec api golangci-lint run
 ```
 # go-rest-json-api-sample

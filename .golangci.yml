@@ -25,5 +25,6 @@ linters-settings:
       - anon
       - error
       - empty
+      - stdlib
       - T # Generics
       - logger.Interface # Gorm logger
