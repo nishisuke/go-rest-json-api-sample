@@ -6,9 +6,6 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	// "github.com/nishisuke/echo-go1.18/internal/infra/env"
-	// "github.com/nishisuke/echo-go1.18/internal/infra/httpreq"
-	// "github.com/nishisuke/echo-go1.18/internal/infra/db"
 )
 
 const expectedContentType = "application/json"
@@ -28,10 +25,10 @@ func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorH
 }
 
 func middlewares(e *echo.Echo) {
-
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"https://labstack.com", "https://labstack.net"}, // TODO
 	}))
+
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			if c.Request().Header.Get("content-type") != expectedContentType {
