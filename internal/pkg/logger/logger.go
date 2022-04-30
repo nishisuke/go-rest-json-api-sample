@@ -52,29 +52,51 @@ func (l *logger) PanicMsg(str string) {
 	log.Panic().Msg(str)
 }
 
-func (l *logger) DebugMap(b map[string]interface{}) {
-	log.Panic().RawJSON("data", mapToBytes(b))
-}
-func (l *logger) InfoMap(b map[string]interface{}) {
-	log.Panic().RawJSON("data", mapToBytes(b))
-}
-func (l *logger) WarnMap(b map[string]interface{}) {
-	log.Panic().RawJSON("data", mapToBytes(b))
-}
-func (l *logger) ErrorMap(b map[string]interface{}) {
-	log.Panic().RawJSON("data", mapToBytes(b))
-}
-func (l *logger) FatalMap(b map[string]interface{}) {
-	log.Panic().RawJSON("data", mapToBytes(b))
-}
-func (l *logger) PanicMap(b map[string]interface{}) {
-	log.Panic().RawJSON("data", mapToBytes(b))
-}
-
-func mapToBytes(m map[string]interface{}) []byte {
+func (l *logger) DebugMap(m map[string]interface{}) {
 	b, err := json.Marshal(m)
 	if err != nil {
-		panic(err)
+		l.ErrorErr(err)
+		return
 	}
-	return b
+	log.Panic().RawJSON("data", (b))
+}
+func (l *logger) InfoMap(m map[string]interface{}) {
+	b, err := json.Marshal(m)
+	if err != nil {
+		l.ErrorErr(err)
+		return
+	}
+	log.Panic().RawJSON("data", (b))
+}
+func (l *logger) WarnMap(m map[string]interface{}) {
+	b, err := json.Marshal(m)
+	if err != nil {
+		l.ErrorErr(err)
+		return
+	}
+	log.Panic().RawJSON("data", (b))
+}
+func (l *logger) ErrorMap(m map[string]interface{}) {
+	b, err := json.Marshal(m)
+	if err != nil {
+		l.ErrorErr(err)
+		return
+	}
+	log.Panic().RawJSON("data", (b))
+}
+func (l *logger) FatalMap(m map[string]interface{}) {
+	b, err := json.Marshal(m)
+	if err != nil {
+		l.ErrorErr(err)
+		return
+	}
+	log.Panic().RawJSON("data", (b))
+}
+func (l *logger) PanicMap(m map[string]interface{}) {
+	b, err := json.Marshal(m)
+	if err != nil {
+		l.ErrorErr(err)
+		return
+	}
+	log.Panic().RawJSON("data", b)
 }
