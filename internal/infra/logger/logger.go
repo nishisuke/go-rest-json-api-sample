@@ -19,7 +19,7 @@ func NewLogger() *logger {
 	}
 }
 
-func Setup() error {
+func Prepare() error {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	return nil
 }

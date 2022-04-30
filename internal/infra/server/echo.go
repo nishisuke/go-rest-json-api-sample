@@ -10,7 +10,7 @@ import (
 )
 
 var infras = []func() error{
-	// logger.prepare,
+	logger.Prepare,
 	// env.prepare,
 	// db.prepare,
 }
