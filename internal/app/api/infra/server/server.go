@@ -1,7 +1,7 @@
 package server
 
 import (
-	"your_module/internal/pkg/logger"
+	"your_module/internal/pkg/server"
 
 	"github.com/labstack/echo/v4"
 	// "github.com/nishisuke/echo-go1.18/internal/infra/env"
@@ -10,18 +10,25 @@ import (
 )
 
 var infras = []func() error{
-	logger.Prepare,
-	// env.prepare,
 	// db.prepare,
 }
 
-func Start() error {
+func Start(logger echo.Logger) error {
 	return prepare(func() error {
-		e := newEcho()
+		e := echo.New()
+		e.Logger = logger
+
+		//envi := env.Env()
+
+		//e.Logger.SetLevel(envi.LogLevel())
+		//e.HideBanner = !envi.IsLocal()
+
+		//e.HTTPErrorHandler = customHTTPErrorHandler
+		//e.Validator = httpreq.NewValidation()
 		// middlewares(e)
 		// authed := e.Group("", auth)
 
-		return startOnPort(e)
+		return server.StartOnPort(e)
 	})
 }
 func prepare(cb func() error) error {
@@ -32,20 +39,6 @@ func prepare(cb func() error) error {
 	}
 
 	return cb()
-}
-
-func newEcho() *echo.Echo {
-	e := echo.New()
-	e.Logger = logger.NewLogger()
-
-	//envi := env.Env()
-
-	//e.Logger.SetLevel(envi.LogLevel())
-	//e.HideBanner = !envi.IsLocal()
-
-	//e.HTTPErrorHandler = customHTTPErrorHandler
-	//e.Validator = httpreq.NewValidation()
-	return e
 }
 
 // func callFacade[T any](c echo.Context, cb func(c *Context, req T) error) error {

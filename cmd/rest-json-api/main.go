@@ -1,12 +1,13 @@
 package main
 
 import (
+	"your_module/internal/app/api"
 	"your_module/internal/pkg/logger"
-	"your_module/internal/pkg/server"
 )
 
 func main() {
-	if err := server.Start(); err != nil {
-		logger.DefaultLogger().FatalErr(err)
+	l := logger.Prepare()
+	if err := api.Start(l); err != nil {
+		l.FatalErr(err)
 	}
 }

@@ -19,9 +19,9 @@ func NewLogger() *logger {
 	}
 }
 
-func Prepare() error {
+func Prepare() *logger {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
-	return nil
+	return &defaultLogger
 }
 
 func (l *logger) DebugErr(err error) {

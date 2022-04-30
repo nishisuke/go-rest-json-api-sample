@@ -13,7 +13,7 @@ func getPort() (int, error) {
 	return strconv.Atoi(v)
 }
 
-func startOnPort(e *echo.Echo) error {
+func StartOnPort(e *echo.Echo) error {
 	port, err := getPort()
 	if err != nil {
 		return err
