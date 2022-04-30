@@ -27,6 +27,14 @@ func (c *Context) GetAuthed() *jwt.Token {
 func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorHandler, en env.Env, register func(e *echo.Echo)) error {
 	e := echo.New()
 	e.Logger = logger
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			cc := &Context{c}
+			return next(cc)
+		}
+	})
 
 	e.HideBanner = !en.IsLocal()
 
@@ -34,11 +42,14 @@ func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorH
 
 	e.HTTPErrorHandler = handler
 
-	// middlewares(e)
+	middlewares(e)
 	// authed := e.Group("", auth)
 
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	register(e)
+	return server.StartOnPort(e)
+}
+
+func middlewares(e *echo.Echo) {
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"https://labstack.com", "https://labstack.net"}, // TODO
@@ -56,13 +67,6 @@ func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorH
 
 			return next(c)
 
-		}
-	})
-
-	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(c echo.Context) error {
-			cc := &Context{c}
-			return next(cc)
 		}
 	})
 
@@ -104,7 +108,4 @@ func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorH
 	//	ContentSecurityPolicy: "default-src 'self'",
 	//
 	//}))
-
-	register(e)
-	return server.StartOnPort(e)
 }
