@@ -10,7 +10,7 @@ import (
 	// "github.com/nishisuke/echo-go1.18/internal/infra/db"
 )
 
-func Start(logger echo.Logger, validator echo.Validator, en env.Env) error {
+func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorHandler, en env.Env) error {
 	e := echo.New()
 	e.Logger = logger
 
@@ -18,7 +18,8 @@ func Start(logger echo.Logger, validator echo.Validator, en env.Env) error {
 
 	e.Validator = validator
 
-	//e.HTTPErrorHandler = customHTTPErrorHandler
+	e.HTTPErrorHandler = handler
+
 	// middlewares(e)
 	// authed := e.Group("", auth)
 

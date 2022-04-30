@@ -1,6 +1,7 @@
 package api
 
 import (
+	"your_module/internal/app/api/err"
 	"your_module/internal/app/api/infra/env"
 	"your_module/internal/app/api/infra/server"
 	"your_module/internal/app/api/validation"
@@ -12,12 +13,12 @@ import (
 
 var gormDB *gorm.DB
 
-func Start(logger echo.Logger, e env.Env) error {
-	tmp, err := db.Prepare(e.GormLogger())
-	if err != nil {
-		return err
+func Start(logger echo.Logger, en env.Env) error {
+	tmp, e := db.Prepare(en.GormLogger())
+	if e != nil {
+		return e
 	}
 	gormDB = tmp
 
-	return server.Start(logger, validation.NewValidation(), e)
+	return server.Start(logger, validation.NewValidation(), err.Resopond, en)
 }
