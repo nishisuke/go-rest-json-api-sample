@@ -10,14 +10,14 @@ https://github.com/golang-standards/project-layout
 ## Setup
 ```
 # Define your volume name
-cp env.sample .env
+cp build/package/env.sample build/package/env
 export YOUR_VOLUME_NAME=my_project_mysql
 
 docker volume create --name=$YOUR_VOLUME_NAME
-sed s/MUST_BE_REPLACED/$YOUR_VOLUME_NAME/ docker-compose.yml.sample > docker-compose.yml
+sed s/MUST_BE_REPLACED/$YOUR_VOLUME_NAME/ build/package/docker-compose.yml.sample > build/package/docker-compose.yml
 unset YOUR_VOLUME_NAME
 
-docker-compose up
+docker-compose -f build/package/docker-compose.yml up
 ```
 
 ## Command
