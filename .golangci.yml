@@ -1,0 +1,29 @@
+run:
+  go: '1.18'
+linters:
+  presets:
+    - bugs
+    - complexity
+    - error
+    - import
+    - metalinter
+    - module
+    - performance
+    - sql
+    - test
+    - unused
+    # - comment
+    # - format
+    # - style
+  disable:
+    - maligned # Deprecated
+    - scopelint # Deprecated
+    - exhaustivestruct # Init struct with all field.
+    - wrapcheck # Wrap error
+    - gci # Imports
+
+
+linters-settings:
+  gocritic:
+    disabled-checks:
+      - singleCaseSwitch
