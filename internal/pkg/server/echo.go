@@ -15,7 +15,7 @@ var infras = []func() error{
 	// db.prepare,
 }
 
-func Run() error {
+func Start() error {
 	return prepare(func() error {
 		e := newEcho()
 		// middlewares(e)

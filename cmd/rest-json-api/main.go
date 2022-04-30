@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	if err := server.Run(); err != nil {
+	if err := server.Start(); err != nil {
 		logger.DefaultLogger().FatalErr(err)
 	}
 }
