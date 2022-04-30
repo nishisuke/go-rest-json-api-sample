@@ -31,7 +31,7 @@ func codeAndMessage(e error) (int, string) {
 		return echoErr.Code, fmt.Sprint(echoErr.Message)
 	}
 
-	var apiErr APIErr
+	var apiErr APIError
 	if errors.As(e, &apiErr) {
 		return apiErr.HTTPStatus(), apiErr.Error()
 	}

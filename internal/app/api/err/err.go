@@ -5,19 +5,19 @@ import (
 	"net/http"
 )
 
-type APIErr int
+type APIError int
 
 const (
-	ErrInvalidContentType APIErr = iota + 1
+	ErrInvalidContentType APIError = iota + 1
 	ErrQueryParamsExist
 	ErrZeroPage
 )
 
-func (e APIErr) Error() string {
+func (e APIError) Error() string {
 	return fmt.Sprintf("Error: %d", e)
 }
 
-func (e APIErr) HTTPStatus() int {
+func (e APIError) HTTPStatus() int {
 	switch e {
 	case ErrInvalidContentType, ErrQueryParamsExist, ErrZeroPage:
 		return http.StatusBadRequest
