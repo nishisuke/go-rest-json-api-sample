@@ -17,7 +17,7 @@ func (e APIErr) Error() string {
 	return fmt.Sprintf("Error: %d", e)
 }
 
-func (e APIErr) HttpStatus() int {
+func (e APIErr) HTTPStatus() int {
 	switch e {
 	case ErrInvalidContentType, ErrQueryParamsExist, ErrZeroPage:
 		return http.StatusBadRequest

@@ -1,5 +1,7 @@
 package server
 
+// CHECK
+
 import (
 	"your_module/internal/app/api/err"
 	"your_module/internal/pkg/server"
@@ -11,7 +13,7 @@ import (
 const expectedContentType = "application/json"
 
 func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorHandler, isLocal bool, register func(e *echo.Echo)) error {
-	return server.Start(logger, func(e *echo.Echo) {
+	err := server.Start(logger, func(e *echo.Echo) {
 		e.HideBanner = !isLocal
 
 		e.Validator = validator
@@ -22,6 +24,7 @@ func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorH
 
 		register(e)
 	})
+	return err
 }
 
 func middlewares(e *echo.Echo) {
@@ -75,12 +78,12 @@ func middlewares(e *echo.Echo) {
 	// }))
 
 	// TODO
-	//e.Use(middleware.SecureWithConfig(middleware.SecureConfig{
+	// e.Use(middleware.SecureWithConfig(middleware.SecureConfig{
 	//	XSSProtection:         "",
 	//	ContentTypeNosniff:    "",
 	//	XFrameOptions:         "",
 	//	HSTSMaxAge:            3600,
 	//	ContentSecurityPolicy: "default-src 'self'",
 	//
-	//}))
+	// }))
 }

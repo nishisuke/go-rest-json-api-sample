@@ -21,5 +21,6 @@ func Start(logger echo.Logger, en env.Env) error {
 	}
 	gormDB = tmp
 
-	return server.Start(logger, validation.NewValidation(), err.Resopond, en.IsLocal(), routes.RegisterUnauthedRoute)
+	e = server.Start(logger, validation.NewValidation(), err.Resopond, en.IsLocal(), routes.RegisterUnauthedRoute)
+	return e
 }

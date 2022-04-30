@@ -1,6 +1,7 @@
 package db
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -87,12 +88,13 @@ func LockForUpdate[T any](db *gorm.DB, findScope func(*gorm.DB) *gorm.DB) (T, er
 	return First[T](db.Clauses(clause.Locking{Strength: "UPDATE"}), findScope)
 }
 func IsErrorDuplicateEntry(err error) bool {
-	switch v := err.(type) {
-	case *driver.MySQLError:
-		switch v.Number {
+	var targ *driver.MySQLError
+	if errors.As(err, &targ) {
+		switch targ.Number {
 		case 1062:
 			return true
 		}
 	}
+
 	return false
 }

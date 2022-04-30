@@ -79,7 +79,6 @@ func SequencePaging[T any](db *gorm.DB, limit int, page int, findScope func(*gor
 func min(items, b int) int {
 	if items < b {
 		return items
-	} else {
-		return b
 	}
+	return b
 }

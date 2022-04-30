@@ -9,50 +9,56 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func Prepare(out io.Writer, lv gommonLog.Lvl) *logger {
-	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
-	return &logger{out: out, lv: lv}
+type Logger struct {
+	prefix string
+	lv     gommonLog.Lvl
+	out    io.Writer
 }
 
-func (l *logger) DebugErr(err error) {
+func Prepare(out io.Writer, lv gommonLog.Lvl) *Logger {
+	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
+	return &Logger{out: out, lv: lv}
+}
+
+func (l *Logger) DebugErr(err error) {
 	log.Debug().Err(err).Send()
 }
-func (l *logger) InfoErr(err error) {
+func (l *Logger) InfoErr(err error) {
 	log.Info().Err(err).Send()
 }
-func (l *logger) WarnErr(err error) {
+func (l *Logger) WarnErr(err error) {
 	log.Warn().Err(err).Send()
 }
-func (l *logger) ErrorErr(err error) {
+func (l *Logger) ErrorErr(err error) {
 	log.Error().Err(err).Send()
 }
-func (l *logger) FatalErr(err error) {
+func (l *Logger) FatalErr(err error) {
 	log.Fatal().Err(err).Send()
 }
-func (l *logger) PanicErr(err error) {
+func (l *Logger) PanicErr(err error) {
 	log.Panic().Err(err).Send()
 }
 
-func (l *logger) DebugMsg(str string) {
+func (l *Logger) DebugMsg(str string) {
 	log.Debug().Msg(str)
 }
-func (l *logger) InfoMsg(str string) {
+func (l *Logger) InfoMsg(str string) {
 	log.Info().Msg(str)
 }
-func (l *logger) WarnMsg(str string) {
+func (l *Logger) WarnMsg(str string) {
 	log.Warn().Msg(str)
 }
-func (l *logger) ErrorMsg(str string) {
+func (l *Logger) ErrorMsg(str string) {
 	log.Error().Msg(str)
 }
-func (l *logger) FatalMsg(str string) {
+func (l *Logger) FatalMsg(str string) {
 	log.Fatal().Msg(str)
 }
-func (l *logger) PanicMsg(str string) {
+func (l *Logger) PanicMsg(str string) {
 	log.Panic().Msg(str)
 }
 
-func (l *logger) DebugMap(m map[string]interface{}) {
+func (l *Logger) DebugMap(m map[string]interface{}) {
 	b, err := json.Marshal(m)
 	if err != nil {
 		l.ErrorErr(err)
@@ -60,7 +66,7 @@ func (l *logger) DebugMap(m map[string]interface{}) {
 	}
 	log.Panic().RawJSON("data", (b))
 }
-func (l *logger) InfoMap(m map[string]interface{}) {
+func (l *Logger) InfoMap(m map[string]interface{}) {
 	b, err := json.Marshal(m)
 	if err != nil {
 		l.ErrorErr(err)
@@ -68,7 +74,7 @@ func (l *logger) InfoMap(m map[string]interface{}) {
 	}
 	log.Panic().RawJSON("data", (b))
 }
-func (l *logger) WarnMap(m map[string]interface{}) {
+func (l *Logger) WarnMap(m map[string]interface{}) {
 	b, err := json.Marshal(m)
 	if err != nil {
 		l.ErrorErr(err)
@@ -76,7 +82,7 @@ func (l *logger) WarnMap(m map[string]interface{}) {
 	}
 	log.Panic().RawJSON("data", (b))
 }
-func (l *logger) ErrorMap(m map[string]interface{}) {
+func (l *Logger) ErrorMap(m map[string]interface{}) {
 	b, err := json.Marshal(m)
 	if err != nil {
 		l.ErrorErr(err)
@@ -84,7 +90,7 @@ func (l *logger) ErrorMap(m map[string]interface{}) {
 	}
 	log.Panic().RawJSON("data", (b))
 }
-func (l *logger) FatalMap(m map[string]interface{}) {
+func (l *Logger) FatalMap(m map[string]interface{}) {
 	b, err := json.Marshal(m)
 	if err != nil {
 		l.ErrorErr(err)
@@ -92,7 +98,7 @@ func (l *logger) FatalMap(m map[string]interface{}) {
 	}
 	log.Panic().RawJSON("data", (b))
 }
-func (l *logger) PanicMap(m map[string]interface{}) {
+func (l *Logger) PanicMap(m map[string]interface{}) {
 	b, err := json.Marshal(m)
 	if err != nil {
 		l.ErrorErr(err)

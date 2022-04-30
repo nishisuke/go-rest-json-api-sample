@@ -8,16 +8,14 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func getPort() (int, error) {
-	v := os.Getenv("PORT")
-	return strconv.Atoi(v)
-}
-
 func startOnPort(e *echo.Echo) error {
-	port, err := getPort()
+	v := os.Getenv("PORT")
+
+	port, err := strconv.Atoi(v)
 	if err != nil {
 		return err
 	}
 
-	return e.Start(fmt.Sprintf(":%d", port))
+	err = e.Start(fmt.Sprintf(":%d", port))
+	return err
 }

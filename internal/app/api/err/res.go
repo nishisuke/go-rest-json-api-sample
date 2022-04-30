@@ -1,6 +1,7 @@
 package err
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -9,26 +10,31 @@ import (
 
 func Resopond(e error, c echo.Context) {
 	code, msg := codeAndMessage(e)
+	if msg == "" {
+		msg = http.StatusText(code)
+	}
 
-	c.JSON(code, map[string]interface{}{
+	err := c.JSON(code, map[string]interface{}{
 		"message": msg,
 	})
+
+	if err != nil {
+		c.Logger().Error(err)
+	}
 }
 
 func codeAndMessage(e error) (int, string) {
 	code := http.StatusInternalServerError
-	msg := ""
 
-	switch v := e.(type) {
-	case *echo.HTTPError:
-		code = v.Code
-		msg = fmt.Sprint(v.Message)
-	case APIErr:
-		code = v.HttpStatus()
-		msg = v.Error()
+	var echoErr *echo.HTTPError
+	if errors.As(e, &echoErr) {
+		return echoErr.Code, fmt.Sprint(echoErr.Message)
 	}
-	if msg == "" {
-		msg = http.StatusText(code)
+
+	var apiErr APIErr
+	if errors.As(e, &apiErr) {
+		return apiErr.HTTPStatus(), apiErr.Error()
 	}
-	return code, msg
+
+	return code, ""
 }

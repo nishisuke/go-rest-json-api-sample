@@ -8,19 +8,19 @@ import (
 )
 
 type (
-	env string
+	Env string
 )
 
 const (
-	production env = "production"
-	staging    env = "staging"
-	local      env = "local"
+	production Env = "production"
+	staging    Env = "staging"
+	local      Env = "local"
 
 	noEnv = "No env"
 )
 
-func Prepare() env {
-	e := env(os.Getenv("API_ENV"))
+func Prepare() Env {
+	e := Env(os.Getenv("API_ENV"))
 	switch e {
 	case local, staging, production:
 		return e
@@ -29,11 +29,11 @@ func Prepare() env {
 	}
 }
 
-func (e env) IsLocal() bool {
+func (e Env) IsLocal() bool {
 	return e == local
 }
 
-func (e env) LogLevel() log.Lvl {
+func (e Env) LogLevel() log.Lvl {
 	switch e {
 	case local:
 		return log.DEBUG
@@ -46,7 +46,7 @@ func (e env) LogLevel() log.Lvl {
 	}
 }
 
-func (e env) GormLogger() logger.Interface {
+func (e Env) GormLogger() logger.Interface {
 	switch e {
 	case local:
 		return logger.Default
