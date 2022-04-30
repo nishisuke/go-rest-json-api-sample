@@ -1,6 +1,8 @@
 package server
 
 import (
+	"your_module/internal/infra/logger"
+
 	"github.com/labstack/echo/v4"
 	// "github.com/nishisuke/echo-go1.18/internal/infra/env"
 	// "github.com/nishisuke/echo-go1.18/internal/infra/httpreq"
@@ -34,7 +36,7 @@ func prepare(cb func() error) error {
 
 func newEcho() *echo.Echo {
 	e := echo.New()
-	//e.Logger = logger.NewLogger()
+	e.Logger = logger.NewLogger()
 
 	//envi := env.Env()
 
