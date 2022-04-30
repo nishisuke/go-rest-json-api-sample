@@ -28,5 +28,5 @@ func setConn(c *Context, v interface{}) {
 
 func (c *Context) GetConn() (*gorm.DB, bool) {
 	v, ok := c.Get(connKey).(*gorm.DB)
-	return v, ok
+	return v.WithContext(c.Request().Context()), ok
 }
