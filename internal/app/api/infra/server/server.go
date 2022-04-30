@@ -2,7 +2,6 @@ package server
 
 import (
 	"your_module/internal/app/api/err"
-	"your_module/internal/app/api/infra/env"
 	"your_module/internal/pkg/server"
 
 	"github.com/labstack/echo/v4"
@@ -14,9 +13,9 @@ import (
 
 const expectedContentType = "application/json"
 
-func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorHandler, en env.Env, register func(e *echo.Echo)) error {
+func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorHandler, isLocal bool, register func(e *echo.Echo)) error {
 	return server.Start(logger, func(e *echo.Echo) {
-		e.HideBanner = !en.IsLocal()
+		e.HideBanner = !isLocal
 
 		e.Validator = validator
 
