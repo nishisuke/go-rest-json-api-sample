@@ -13,6 +13,7 @@ type (
 	}
 )
 
-func (c *Context) GetAuthed() *jwt.Token {
-	return c.Get(key).(*jwt.Token)
+func (c *Context) GetAuthed() (*jwt.Token, bool) {
+	val, ok := c.Get(key).(*jwt.Token)
+	return val, ok
 }
