@@ -5,7 +5,6 @@ import (
 	"your_module/internal/app/api/infra/env"
 	"your_module/internal/pkg/server"
 
-	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	// "github.com/nishisuke/echo-go1.18/internal/infra/env"
@@ -15,38 +14,18 @@ import (
 
 const expectedContentType = "application/json"
 
-type (
-	Context struct {
-		echo.Context
-	}
-)
-
-func (c *Context) GetAuthed() *jwt.Token {
-	return c.Get("user").(*jwt.Token)
-}
 func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorHandler, en env.Env, register func(e *echo.Echo)) error {
-	e := echo.New()
-	e.Logger = logger
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(c echo.Context) error {
-			cc := &Context{c}
-			return next(cc)
-		}
+	return server.Start(logger, func(e *echo.Echo) {
+		e.HideBanner = !en.IsLocal()
+
+		e.Validator = validator
+
+		e.HTTPErrorHandler = handler
+
+		middlewares(e)
+
+		register(e)
 	})
-
-	e.HideBanner = !en.IsLocal()
-
-	e.Validator = validator
-
-	e.HTTPErrorHandler = handler
-
-	middlewares(e)
-	// authed := e.Group("", auth)
-
-	register(e)
-	return server.StartOnPort(e)
 }
 
 func middlewares(e *echo.Echo) {
