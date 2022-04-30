@@ -8,12 +8,13 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"gorm.io/gorm"
 )
 
 const expectedContentType = "application/json"
 
-func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorHandler, isLocal bool, register func(e *echo.Echo)) error {
-	err := server.Start(logger, func(e *echo.Echo) {
+func Start(logger echo.Logger, conn *gorm.DB, validator echo.Validator, handler echo.HTTPErrorHandler, isLocal bool, register func(e *echo.Echo)) error {
+	err := server.Start(logger, conn, func(e *echo.Echo) {
 		e.HideBanner = !isLocal
 
 		e.Validator = validator
@@ -44,7 +45,6 @@ func middlewares(e *echo.Echo) {
 			}
 
 			return next(c)
-
 		}
 	})
 

@@ -5,7 +5,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func Start(logger echo.Logger, cb func(e *echo.Echo)) error {
+func Start(logger echo.Logger, v interface{}, cb func(e *echo.Echo)) error {
 	e := echo.New()
 	e.Logger = logger
 
@@ -15,6 +15,7 @@ func Start(logger echo.Logger, cb func(e *echo.Echo)) error {
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			cc := &Context{c}
+			setConn(cc, v)
 			return next(cc)
 		}
 	})

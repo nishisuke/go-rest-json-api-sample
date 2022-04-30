@@ -9,18 +9,14 @@ import (
 	"your_module/internal/pkg/db"
 
 	"github.com/labstack/echo/v4"
-	"gorm.io/gorm"
 )
 
-var gormDB *gorm.DB
-
 func Start(logger echo.Logger, en env.Env) error {
-	tmp, e := db.Prepare(en.GormLogger())
+	conn, e := db.Prepare(en.GormLogger())
 	if e != nil {
 		return e
 	}
-	gormDB = tmp
 
-	e = server.Start(logger, validation.NewValidation(), err.Resopond, en.IsLocal(), routes.RegisterUnauthedRoute)
+	e = server.Start(logger, conn, validation.NewValidation(), err.Resopond, en.IsLocal(), routes.RegisterUnauthedRoute)
 	return e
 }
