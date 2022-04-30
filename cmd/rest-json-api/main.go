@@ -7,6 +7,6 @@ import (
 
 func main() {
 	if err := server.Run(); err != nil {
-		logger.NewLogger().FatalErr(err)
+		logger.DefaultLogger().FatalErr(err)
 	}
 }
