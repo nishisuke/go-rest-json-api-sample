@@ -10,7 +10,7 @@ https://github.com/golang-standards/project-layout
 ## Setup
 ```
 # Define your volume name
-cp build/package/env.sample build/package/env
+cp build/package/env.sample build/package/.env
 export YOUR_VOLUME_NAME=my_project_mysql
 
 docker volume create --name=$YOUR_VOLUME_NAME

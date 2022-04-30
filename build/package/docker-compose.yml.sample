@@ -7,7 +7,7 @@ services:
     ports:
       - 55570:${PORT} # FIXME
     env_file:
-      - env
+      - .env
     volumes:
       - ./:/home/app
   db:
