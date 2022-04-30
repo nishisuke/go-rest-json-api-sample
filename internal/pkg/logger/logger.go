@@ -1,17 +1,12 @@
 package logger
 
 import (
+	"io"
 	"os"
 
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
-
-var defaultLogger = logger{out: os.Stdout}
-
-func DefaultLogger() *logger {
-	return &defaultLogger
-}
 
 func NewLogger() *logger {
 	return &logger{
@@ -19,9 +14,9 @@ func NewLogger() *logger {
 	}
 }
 
-func Prepare() *logger {
+func Prepare(out io.Writer) *logger {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
-	return &defaultLogger
+	return &logger{out: out}
 }
 
 func (l *logger) DebugErr(err error) {

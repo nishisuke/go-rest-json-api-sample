@@ -1,7 +1,6 @@
 package api
 
 import (
-	"errors"
 	"os"
 
 	"github.com/labstack/gommon/log"
@@ -24,16 +23,16 @@ func Env() APIEnv {
 	return apiEnv
 }
 
-func prepare() error {
+func prepare() APIEnv {
 	apiEnvTmp := APIEnv(os.Getenv("API_ENV"))
 	switch apiEnvTmp {
 	case local, staging, production:
 		apiEnv = apiEnvTmp
 	default:
-		return errors.New("Unregistered API_ENV")
+		panic("Unregistered API_ENV")
 	}
 
-	return nil
+	return apiEnvTmp
 }
 
 func (e APIEnv) IsLocal() bool {
