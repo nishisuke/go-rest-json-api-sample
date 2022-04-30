@@ -1,5 +1,7 @@
 package server
 
+// CHECK
+
 import (
 	"your_module/internal/pkg/server"
 

@@ -10,10 +10,8 @@ import (
 
 var gormDB *gorm.DB
 
-func Start(logger echo.Logger) error {
-	env := prepare()
-
-	tmp, err := db.Prepare(env.GormLogger())
+func Start(logger echo.Logger, e Env) error {
+	tmp, err := db.Prepare(e.GormLogger())
 	if err != nil {
 		return err
 	}

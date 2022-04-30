@@ -1,5 +1,6 @@
 package logger
 
+// CHECK
 import (
 	"io"
 

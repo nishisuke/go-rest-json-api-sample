@@ -1,5 +1,7 @@
 package db
 
+// CHECK
+
 import (
 	"your_module/internal/app/err"
 

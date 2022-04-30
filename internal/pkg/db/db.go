@@ -1,5 +1,7 @@
 package db
 
+// CHECK
+
 import (
 	"context"
 	"fmt"

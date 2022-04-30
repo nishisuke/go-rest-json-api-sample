@@ -2,21 +2,15 @@ package logger
 
 import (
 	"io"
-	"os"
 
+	gommonLog "github.com/labstack/gommon/log"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
 
-func NewLogger() *logger {
-	return &logger{
-		out: os.Stdout,
-	}
-}
-
-func Prepare(out io.Writer) *logger {
+func Prepare(out io.Writer, lv gommonLog.Lvl) *logger {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
-	return &logger{out: out}
+	return &logger{out: out, lv: lv}
 }
 
 func (l *logger) DebugErr(err error) {
@@ -36,4 +30,23 @@ func (l *logger) FatalErr(err error) {
 }
 func (l *logger) PanicErr(err error) {
 	log.Panic().Err(err).Send()
+}
+
+func (l *logger) DebugMsg(str string) {
+	log.Debug().Msg(str)
+}
+func (l *logger) InfoMsg(str string) {
+	log.Info().Msg(str)
+}
+func (l *logger) WarnMsg(str string) {
+	log.Warn().Msg(str)
+}
+func (l *logger) ErrorMsg(str string) {
+	log.Error().Msg(str)
+}
+func (l *logger) FatalMsg(str string) {
+	log.Fatal().Msg(str)
+}
+func (l *logger) PanicMsg(str string) {
+	log.Panic().Msg(str)
 }
