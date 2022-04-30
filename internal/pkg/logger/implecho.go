@@ -10,19 +10,23 @@ import (
 func (l *Logger) Output() io.Writer {
 	return l.out
 }
+
 func (l *Logger) SetOutput(w io.Writer) {
 	l.out = w
 }
+
 func (l *Logger) Prefix() string {
 	return l.prefix
-
 }
+
 func (l *Logger) SetPrefix(p string) {
 	l.prefix = p
 }
+
 func (l *Logger) Level() log.Lvl {
 	return l.lv
 }
+
 func (l *Logger) SetLevel(v log.Lvl) {
 	l.lv = v
 }

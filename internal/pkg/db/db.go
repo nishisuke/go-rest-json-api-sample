@@ -12,6 +12,10 @@ import (
 	"gorm.io/gorm/logger"
 )
 
+const (
+	conflict = 1062
+)
+
 func Prepare(logger logger.Interface) (*gorm.DB, error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		os.Getenv("DB_USER"),
@@ -57,7 +61,6 @@ func CreateOrFirst[T any](db *gorm.DB, pointer *T, findScope func(*gorm.DB) *gor
 	}
 
 	return db.Scopes(findScope).First(pointer).Error
-
 }
 func CreateOrUpdate[T any](db *gorm.DB, pointer *T, findScope func(*gorm.DB) *gorm.DB) error {
 	updateValue := *pointer // NOTE: Get snapshot before create
@@ -91,7 +94,7 @@ func IsErrorDuplicateEntry(err error) bool {
 	var targ *driver.MySQLError
 	if errors.As(err, &targ) {
 		switch targ.Number {
-		case 1062:
+		case conflict:
 			return true
 		}
 	}
