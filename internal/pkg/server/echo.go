@@ -1,7 +1,7 @@
 package server
 
 import (
-	"your_module/internal/infra/logger"
+	"your_module/internal/pkg/logger"
 
 	"github.com/labstack/echo/v4"
 	// "github.com/nishisuke/echo-go1.18/internal/infra/env"

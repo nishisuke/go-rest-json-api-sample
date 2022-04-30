@@ -1,8 +1,8 @@
 package main
 
 import (
-	"your_module/internal/infra/logger"
-	"your_module/internal/infra/server"
+	"your_module/internal/pkg/logger"
+	"your_module/internal/pkg/server"
 )
 
 func main() {
