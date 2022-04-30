@@ -2,12 +2,12 @@ version: "3.9"
 
 services:
   api:
-    build: build/package
+    build: .
     working_dir: /home/app
     ports:
       - 55570:${PORT} # FIXME
     env_file:
-      - .env
+      - env
     volumes:
       - ./:/home/app
   db:
