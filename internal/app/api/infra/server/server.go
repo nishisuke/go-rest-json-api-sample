@@ -24,7 +24,7 @@ type (
 func (c *Context) GetAuthed() *jwt.Token {
 	return c.Get("user").(*jwt.Token)
 }
-func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorHandler, en env.Env) error {
+func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorHandler, en env.Env, register func(e *echo.Echo)) error {
 	e := echo.New()
 	e.Logger = logger
 
@@ -105,5 +105,6 @@ func Start(logger echo.Logger, validator echo.Validator, handler echo.HTTPErrorH
 	//
 	//}))
 
+	register(e)
 	return server.StartOnPort(e)
 }
