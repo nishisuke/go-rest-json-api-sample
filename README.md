@@ -25,3 +25,4 @@ docker-compose up
 ```
 docker-compose exec db mysql -u root -p
 ```
+# go-rest-json-api-sample
