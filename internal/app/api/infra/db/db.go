@@ -3,7 +3,8 @@ package db
 // CHECK
 
 import (
-	"your_module/internal/app/err"
+	"your_module/internal/app/api/err"
+	wrap "your_module/internal/pkg/db"
 
 	"gorm.io/gorm"
 )
@@ -28,14 +29,14 @@ func Paging[T any](db *gorm.DB, limit int, page int, findScope func(*gorm.DB) *g
 		return Page[T]{}, err.ErrZeroPage
 	}
 
-	items, err := tmp.All[T](db, func(d *gorm.DB) *gorm.DB {
+	items, err := wrap.All[T](db, func(d *gorm.DB) *gorm.DB {
 		return d.Scopes(findScope).Offset((page - 1) * limit).Limit(limit)
 	})
 	if err != nil {
 		return Page[T]{}, err
 	}
 
-	total, err := tmp.Count[T](db, findScope)
+	total, err := wrap.Count[T](db, findScope)
 	if err != nil {
 		return Page[T]{}, err
 	}
@@ -59,7 +60,7 @@ func SequencePaging[T any](db *gorm.DB, limit int, page int, findScope func(*gor
 		return SequenceItems[T]{}, err.ErrZeroPage
 	}
 	plusOne := limit + 1
-	items, err := tmp.All[T](db, func(d *gorm.DB) *gorm.DB {
+	items, err := wrap.All[T](db, func(d *gorm.DB) *gorm.DB {
 		return d.Scopes(findScope).Offset((page - 1) * limit).Limit(plusOne)
 	})
 
