@@ -38,6 +38,7 @@ func (l *logger) SetLevel(v log.Lvl) {
 
 func (l *logger) SetHeader(h string) {
 	l.WarnMsg("SetHeader is not available.")
+	return
 }
 
 func (l *logger) Printj(j log.JSON) { l.InfoMap(j) }
