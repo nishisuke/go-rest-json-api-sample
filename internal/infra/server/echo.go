@@ -32,16 +32,6 @@ func prepare(cb func() error) error {
 	return cb()
 }
 
-// TODO: Impl auth
-func auth(next echo.HandlerFunc) echo.HandlerFunc {
-	return func(c echo.Context) error {
-		c.Logger().Debugj(map[string]interface{}{
-			"msg": "AUTHED",
-		})
-		return next(c)
-	}
-}
-
 func newEcho() *echo.Echo {
 	e := echo.New()
 	//e.Logger = logger.NewLogger()
@@ -81,3 +71,13 @@ func newEcho() *echo.Echo {
 // func (c *Context) GetAuthed() *jwt.Token {
 // 	return c.Get("user").(*jwt.Token)
 // }
+//// TODO: Impl auth
+//func auth(next echo.HandlerFunc) echo.HandlerFunc {
+//	return func(c echo.Context) error {
+//		c.Logger().Debugj(map[string]interface{}{
+//			"msg": "AUTHED",
+//		})
+//		return next(c)
+//	}
+//}
+//
