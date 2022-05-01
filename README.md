@@ -44,7 +44,6 @@ docker-compose up
 ```
 docker-compose exec db mysql -u root -p
 docker-compose exec api golangci-lint run
-./scripts/openapi.sh
 dc exec api swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
 ```
 # go-rest-json-api-sample
