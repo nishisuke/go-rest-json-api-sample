@@ -10,7 +10,6 @@ import (
 )
 
 func RegisterUnauthedRoute(e *echo.Group) {
-
 	e.POST("/foo", func(c echo.Context) error {
 		return server.CallFacade(c, (&Controller{}).Hoge)
 	})
@@ -32,7 +31,6 @@ type Controller struct{}
 // @Router       /accounts [get]
 func (cont *Controller) Hoge(db *gorm.DB, ctx *server.Context, req User) error {
 	return ctx.String(http.StatusOK, "aaaaa")
-
 }
 
 type (
