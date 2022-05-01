@@ -23,5 +23,7 @@ jobs:
           git config --local user.name "$(git log --format='%an' HEAD^!)"
 
           git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
-          git commit -m "[GitHub Actions] Generate swagger"
+
+          git diff --exit-code || git commit -m "[GitHub Actions] Generate swagger"
+          
           git push github HEAD:${GITHUB_REF}
