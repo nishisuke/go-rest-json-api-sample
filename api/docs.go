@@ -53,26 +53,26 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/controller.User"
+                                "$ref": "#/definitions/routes.User"
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/controller.Error"
+                            "$ref": "#/definitions/routes.Error"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/controller.Error"
+                            "$ref": "#/definitions/routes.Error"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/controller.Error"
+                            "$ref": "#/definitions/routes.Error"
                         }
                     }
                 }
@@ -80,7 +80,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "controller.Error": {
+        "routes.Error": {
             "type": "object",
             "required": [
                 "name"
@@ -91,7 +91,7 @@ const docTemplate = `{
                 }
             }
         },
-        "controller.User": {
+        "routes.User": {
             "type": "object",
             "required": [
                 "name"

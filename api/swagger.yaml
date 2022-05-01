@@ -1,13 +1,13 @@
 basePath: /v2
 definitions:
-  controller.Error:
+  routes.Error:
     properties:
       name:
         type: string
     required:
     - name
     type: object
-  controller.User:
+  routes.User:
     properties:
       createdAt:
         type: string
@@ -52,20 +52,20 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/controller.User'
+              $ref: '#/definitions/routes.User'
             type: array
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/controller.Error'
+            $ref: '#/definitions/routes.Error'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/controller.Error'
+            $ref: '#/definitions/routes.Error'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/controller.Error'
+            $ref: '#/definitions/routes.Error'
       summary: List accounts
       tags:
       - accounts
