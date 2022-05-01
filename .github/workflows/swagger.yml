@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+        with:
+          ref: ${{ github.head_ref }}
       - name: Swag init
         run: |
           docker build -t swag build/package
