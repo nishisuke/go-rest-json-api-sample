@@ -16,14 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: commit & push
+      - name: Swag init
         run: |
           docker build -t swag build/package
           docker run -w /home/app -v `pwd`:/home/app swag swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
+      - name: Commit and push
+        run: |
           git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
-          git config --global user.name "${GITHUB_ACTOR}"
-          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git commit --allow-empty -m 'emp'
+          # git config --global user.name "${GITHUB_ACTOR}"
+          # git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+           git config --local user.email "$(git log --format='%ae' HEAD^!)"
+           git config --local user.name "$(git log --format='%an' HEAD^!)"
+          # git commit --allow-empty -m 'emp'
 
 
           git add .
