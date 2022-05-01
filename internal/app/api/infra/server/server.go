@@ -24,7 +24,6 @@ func Start(logger echo.Logger, conn *gorm.DB, validator echo.Validator, handler 
 		middlewares(e)
 
 		api := e.Group("api", func(next echo.HandlerFunc) echo.HandlerFunc {
-
 			return func(c echo.Context) error {
 				if c.Request().Header.Get("content-type") != expectedContentType {
 					return err.ErrInvalidContentType

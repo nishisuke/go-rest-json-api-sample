@@ -16,6 +16,7 @@ linters:
     - lll # Long line
     - gofumpt # Formatter
     - godox # Comment check
+    - godot # Comment end with .
 linters-settings:
   gocritic:
     disabled-checks:
