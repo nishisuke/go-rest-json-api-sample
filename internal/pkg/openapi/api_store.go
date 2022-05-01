@@ -29,10 +29,10 @@ var (
 type StoreApiService service
 
 type ApiPlaceOrderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *StoreApiService
-	orderId int64
-	body *Pet
+	orderId    int64
+	body       *Pet
 }
 
 // order placed for purchasing the pet
@@ -55,8 +55,8 @@ PlaceOrder Place an order for a pet
 func (a *StoreApiService) PlaceOrder(ctx context.Context, orderId int64) ApiPlaceOrderRequest {
 	return ApiPlaceOrderRequest{
 		ApiService: a,
-		ctx: ctx,
-		orderId: orderId,
+		ctx:        ctx,
+		orderId:    orderId,
 	}
 }
 
@@ -64,10 +64,10 @@ func (a *StoreApiService) PlaceOrder(ctx context.Context, orderId int64) ApiPlac
 //  @return Pet
 func (a *StoreApiService) PlaceOrderExecute(r ApiPlaceOrderRequest) (*Pet, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Pet
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Pet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StoreApiService.PlaceOrder")
