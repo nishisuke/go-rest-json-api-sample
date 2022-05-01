@@ -13,17 +13,27 @@ jobs:
       - uses: actions/checkout@master
       - name: commit & push
         run: |
-          git add .
-          #if ! git diff --exit-code --quiet
-          #then
-          #  git config user.name github-actions
-          #  git config user.email github-actions@github.com
-          #fi
-          git config --local user.email "$(git log --format='%ae' HEAD^!)"
-          git config --local user.name "$(git log --format='%an' HEAD^!)"
+          git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git commit --allow-empty -m 'emp'
+          if (git diff --shortstat | grep '[0-9]'); then \
+            git add .; \
+            git commit -m "GitHub Actions から差分を Push"; \
+            git push origin HEAD:${GITHUB_REF}; \
+          fi
 
-          git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+          # git add .
+          # #if ! git diff --exit-code --quiet
+          # #then
+          # #  git config user.name github-actions
+          # #  git config user.email github-actions@github.com
+          # #fi
+          # git config --local user.email "$(git log --format='%ae' HEAD^!)"
+          # git config --local user.name "$(git log --format='%an' HEAD^!)"
 
-          git diff --exit-code || git commit -m "[GitHub Actions] Generate swagger"
-          
-          git push github HEAD:${GITHUB_REF}
+          # git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+
+          # git diff --exit-code || git commit -m "[GitHub Actions] Generate swagger"
+          # 
+          # git push github HEAD:${GITHUB_REF}
