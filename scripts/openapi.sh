@@ -12,3 +12,5 @@ rm -f internal/pkg/openapi/git_push.sh
 rm -f internal/pkg/openapi/.gitignore
 rm -f internal/pkg/openapi/.travis.yml
 rm -f internal/pkg/openapi/.openapi-generator/FILES
+
+docker-compose exec api go fmt ./...
