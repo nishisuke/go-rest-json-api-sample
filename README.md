@@ -44,7 +44,7 @@ docker-compose up
 ```
 docker-compose exec db mysql -u root -p
 docker-compose exec api golangci-lint run
-./scripts/openapi.sh
-dc exec api swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
+docker-compose exec api swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
+docker run --rm -v `pwd`:/local openapitools/openapi-generator-cli generate -i local/api/swagger.yaml -g typescript-axios -o /local/internal/pkg/openapi --package-name openapi
 ```
 # go-rest-json-api-sample
