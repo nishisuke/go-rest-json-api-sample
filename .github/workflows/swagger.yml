@@ -16,13 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-        #with:
-        #  ref: ${{ github.head_ref }}
+        with:
+          ref: ${{ github.head_ref }}
       - name: Swag init
         run: |
-          date > foo
-          # docker build -t swag build/package
-          # docker run -w /home/app -v `pwd`:/home/app swag swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
+          docker build -t swag build/package
+          docker run -w /home/app -v `pwd`:/home/app swag swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
       - name: Commit and push
         run: |
           git config --local user.email "$(git log --format='%ae' HEAD^!)"
