@@ -31,18 +31,3 @@ func RegisterUnauthedRoute(e *echo.Echo) {
 		})
 	})
 }
-
-// type BodyBinder struct{}
-//
-// func NewBinder() *BodyBinder {
-// 	return &BodyBinder{}
-// }
-//
-// func (cb *BodyBinder) bind(c echo.Context, i interface{}) error {
-// 	if err := (&echo.DefaultBinder{}).BindBody(c, i); err != nil {
-// 		return err
-// 	}
-//
-// 	// Define your custom implementation here
-// 	return nil
-// }
