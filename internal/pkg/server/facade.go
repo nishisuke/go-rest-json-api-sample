@@ -12,15 +12,8 @@ func CallFacade[T any](c echo.Context, facade func(db *gorm.DB, ctx *Context, re
 		return err
 	}
 
-	ctx, ok := c.(*Context)
-	if !ok {
-		panic("Invalid type Context")
-	}
-
-	db, ok := ctx.GetConn()
-	if !ok {
-		panic("Invalid DB")
-	}
+	ctx, _ := c.(*Context)
+	db, _ := ctx.GetConn()
 
 	return facade(db, ctx, req)
 }
