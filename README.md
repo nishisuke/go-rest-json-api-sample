@@ -1,4 +1,18 @@
 # go-rest-json-api-sample
+## GitHub settings
+### Protection
+https://github.com/nishisuke/go-rest-json-api-sample/settings/branches
+
+- Require a pull request before merging
+  - Require approvals
+  - Dismiss stale pull request approvals when new commits are pushed
+- Include administrators
+### Workflow permissions
+https://github.com/nishisuke/go-rest-json-api-sample/settings/actions
+
+- Read and write permissions
+
+
 ## TODOs
 - x swagger.yml
 - x golangci-lint
