@@ -10,7 +10,7 @@ import (
 	"your_module/internal/pkg/logger"
 )
 
-// @title           Swagger som API
+// @title           Swagger baaa API
 // @version         1.0
 // @description     This is a sample server Petstore server.
 // @termsOfService  http://swagger.io/terms/

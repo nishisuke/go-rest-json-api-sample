@@ -1,4 +1,9 @@
 # go-rest-json-api-sample
+## TODOs
+- x swagger.yml
+- x golangci-lint
+- x test
+
 ## Versions
 - Go 1.18
 - Air any
