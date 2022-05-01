@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func RegisterUnauthedRoute(e *echo.Echo) {
+func RegisterUnauthedRoute(e *echo.Group) {
 
 	e.POST("/foo", func(c echo.Context) error {
 		return server.CallFacade(c, (&Controller{}).Hoge)

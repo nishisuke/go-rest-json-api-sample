@@ -13,7 +13,7 @@ import (
 
 const expectedContentType = "application/json"
 
-func Start(logger echo.Logger, conn *gorm.DB, validator echo.Validator, handler echo.HTTPErrorHandler, isLocal bool, register func(e *echo.Echo)) error {
+func Start(logger echo.Logger, conn *gorm.DB, validator echo.Validator, handler echo.HTTPErrorHandler, isLocal bool, register func(e *echo.Group)) error {
 	err := server.Start(logger, conn, func(e *echo.Echo) {
 		e.HideBanner = !isLocal
 
@@ -23,7 +23,23 @@ func Start(logger echo.Logger, conn *gorm.DB, validator echo.Validator, handler 
 
 		middlewares(e)
 
-		register(e)
+		api := e.Group("api", func(next echo.HandlerFunc) echo.HandlerFunc {
+
+			return func(c echo.Context) error {
+				if c.Request().Header.Get("content-type") != expectedContentType {
+					return err.ErrInvalidContentType
+				}
+
+				q := c.QueryString()
+				if q != "" {
+					return err.ErrQueryParamsExist
+				}
+
+				return next(c)
+			}
+		})
+
+		register(api)
 	})
 	return err
 }
@@ -32,21 +48,6 @@ func middlewares(e *echo.Echo) {
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"https://labstack.com", "https://labstack.net"}, // TODO
 	}))
-
-	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(c echo.Context) error {
-			if c.Request().Header.Get("content-type") != expectedContentType {
-				return err.ErrInvalidContentType
-			}
-
-			q := c.QueryString()
-			if q != "" {
-				return err.ErrQueryParamsExist
-			}
-
-			return next(c)
-		}
-	})
 
 	// TODO
 	// e.Use(middleware.JWTWithConfig(middleware.JWTConfig{
