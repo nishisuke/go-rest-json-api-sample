@@ -20,8 +20,9 @@ jobs:
           ref: ${{ github.head_ref }}
       - name: Swag init
         run: |
-          docker build -t swag build/package
-          docker run -w /home/app -v `pwd`:/home/app swag swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
+          date > foo
+          # docker build -t swag build/package
+          # docker run -w /home/app -v `pwd`:/home/app swag swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
       - name: Commit and push
         run: |
           # git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
@@ -32,8 +33,14 @@ jobs:
           # git commit --allow-empty -m 'emp'
 
 
-          git add .
-          git diff --exit-code || git commit -m "[GitHub Actions] Generate swagger"
+          git add -N .
+          echo bar
+          git diff --exit-code   --quiet || echo foo
+          echo bar
+          git status
+          git diff --exit-code   --quiet || git commit -m "[GitHub Actions] Generate swagger"
+          git log --oneline -3
+          git branch
           git push
           # git push origin HEAD:${GITHUB_REF}
 
