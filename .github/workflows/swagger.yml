@@ -38,7 +38,7 @@ jobs:
           git diff --exit-code   --quiet || echo foo
           echo bar
           git status
-          git diff --exit-code   --quiet || git commit -m "[GitHub Actions] Generate swagger"
+          git diff --exit-code   --quiet || git commit -a -m "[GitHub Actions] Generate swagger"
           git log --oneline -3
           git branch
           git push
