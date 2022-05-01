@@ -13,6 +13,8 @@ jobs:
       - uses: actions/checkout@master
       - name: commit & push
         run: |
+          pwd
+          ls
           docker-compose run api swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
           git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
           git config --global user.name "${GITHUB_ACTOR}"
