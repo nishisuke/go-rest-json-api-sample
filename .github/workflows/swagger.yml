@@ -3,8 +3,13 @@ on:
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - 'api/**'
         #    paths:
         #      - '**.go'
+        #        paths:
+        #- 'sub-project/**'
+        #- '!sub-project/docs/**'
 jobs:
   generate:
     name: Generate
@@ -13,9 +18,8 @@ jobs:
       - uses: actions/checkout@master
       - name: commit & push
         run: |
-          pwd
-          ls
-          docker-compose run api swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
+          docker build -t swag build/package
+          docker run -w /home/app -v `pwd`:/home/app swag swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
           git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
