@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 func Start(logger echo.Logger, v interface{}, cb func(e *echo.Echo)) error {
@@ -19,6 +20,8 @@ func Start(logger echo.Logger, v interface{}, cb func(e *echo.Echo)) error {
 			return next(cc)
 		}
 	})
+
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	cb(e)
 
