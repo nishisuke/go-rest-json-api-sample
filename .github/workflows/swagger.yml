@@ -25,22 +25,12 @@ jobs:
           # docker run -w /home/app -v `pwd`:/home/app swag swag i -o api --ot go,yaml -g cmd/rest-json-api/main.go
       - name: Commit and push
         run: |
-          # git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
-          # git config --global user.name "${GITHUB_ACTOR}"
-          # git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-           git config --local user.email "$(git log --format='%ae' HEAD^!)"
-           git config --local user.name "$(git log --format='%an' HEAD^!)"
-          # git commit --allow-empty -m 'emp'
+          git config --local user.email "$(git log --format='%ae' HEAD^!)"
+          git config --local user.name "$(git log --format='%an' HEAD^!)"
 
 
           git add -N .
-          echo bar
-          git diff --exit-code   --quiet || echo foo
-          echo bar
-          git status
-          git diff --exit-code   --quiet || git commit -a -m "[GitHub Actions] Generate swagger"
-          git log --oneline -3
-          git branch
+          git diff --exit-code --quiet || git commit -a -m "[GitHub Actions] Generate swagger"
           git push
           # git push origin HEAD:${GITHUB_REF}
 
