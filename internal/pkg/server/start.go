@@ -3,12 +3,13 @@ package server
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/nishisuke/ezlog"
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 func Start(logger echo.Logger, v interface{}, cb func(e *echo.Echo)) error {
 	e := echo.New()
-	e.Logger = logger
+	ezlog.Prepare(e)
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
