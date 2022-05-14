@@ -10,7 +10,7 @@ import (
 	"your_module/internal/pkg/logger"
 )
 
-// @title           Swagger baaa API
+// @title     Swagger baaa API
 // @host      petstore.swagger.io
 // @BasePath  /api
 func main() {

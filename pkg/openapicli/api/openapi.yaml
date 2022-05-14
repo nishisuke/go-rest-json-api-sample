@@ -1,0 +1,75 @@
+openapi: 3.0.1
+info:
+  contact: {}
+  title: Swagger baaa API
+servers:
+- url: //petstore.swagger.io/api
+paths:
+  /accounts:
+    get:
+      description: get accounts
+      parameters:
+      - description: name search by q
+        in: query
+        name: q
+        schema:
+          format: email
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/routes.User'
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/routes.Error'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/routes.Error'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/routes.Error'
+          description: Internal Server Error
+      summary: List accounts
+      tags:
+      - accounts
+components:
+  schemas:
+    routes.Error:
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    routes.User:
+      example:
+        createdAt: createdAt
+        name: name
+        id: 0
+        updatedAt: updatedAt
+      properties:
+        createdAt:
+          type: string
+        id:
+          type: integer
+        name:
+          type: string
+        updatedAt:
+          type: string
+      required:
+      - name
+      type: object
+x-original-swagger-version: "2.0"
