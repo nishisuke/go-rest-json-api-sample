@@ -49,3 +49,8 @@ docker run --rm -v `pwd`:/local openapitools/openapi-generator-cli generate -i l
 docker run --rm -v `pwd`:/local openapitools/openapi-generator-cli generate -i local/api/swagger.yaml -g typescript-axios -o /local/web/src
 ```
 # go-rest-json-api-sample
+
+dc exec api gocyclo -avg  -ignore "pkg/openapicli/" .
+// 3 はsafe
+dc exec api gocyclo -over 3 -ignore "pkg/openapicli/" .       
+
